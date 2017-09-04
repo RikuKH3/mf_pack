@@ -99,7 +99,7 @@ var
 begin
   InputDir:=ExpandFileName(ParamStr(1));
   repeat if InputDir[Length(InputDir)]='\' then SetLength(InputDir, Length(InputDir)-1) until not (InputDir[Length(InputDir)]='\');
-  if not (FileExists(InputDir+'\filelist.txt')) then begin Writeln(#39'pk_filelist.txt'#39' not found in selected folder'); Readln; exit end;
+  if not (FileExists(InputDir+'\filelist.txt')) then begin Writeln(#39'filelist.txt'#39' not found in selected folder'); Readln; exit end;
 
   StringList1:=TStringList.Create;
   try
