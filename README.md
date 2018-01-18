@@ -8,7 +8,8 @@ Usage:
 Game text stored in DATA2/15.mf and font is in DATA2/14.mf
 
 ANSI character limit fix:
-  in SLPM_665.13 at offsets 0x36970 and 0x4A700 change '1C' to '2C'.
+  in SLPM_665.13 at offsets 0x36970 and 0x4A700 change '1C' to '2C'
+  and for choices at 0xBAFBC change '18' to '20'.
   
 https://i.imgur.com/dy6i0ak.png
 https://i.imgur.com/xBu7dcz.png
