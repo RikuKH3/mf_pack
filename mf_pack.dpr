@@ -92,9 +92,9 @@ var
   FileStream1, FileStream2: TFileStream;
   StringList1: TStringList;
   LZSS1: TLZSS;
-  LongWord1, LongWord2, LongWord3, CmpFlag: LongWord;
+  LongWord1, LongWord2, LongWord3, ExtraPadFlag, ExtraPadLen, CmpFlag: LongWord;
   PadFlag: Boolean;
-  s, s2, InputDir: String;
+  s, s2, ExtraPad, InputDir: String;
   i, x: Integer;
 begin
   InputDir:=ExpandFileName(ParamStr(1));
@@ -151,9 +151,13 @@ begin
 
           LongWord1 := LastDelimiter(';',StringList1[i]);
           if LongWord1>0 then begin
-            if Copy(StringList1[i],LongWord1+1)='1' then CmpFlag:=1 else CmpFlag:=0;
+            if Copy(StringList1[i],LongWord1+1,1)='1' then CmpFlag:=1 else CmpFlag:=0;
+            if Copy(StringList1[i],LongWord1+2,1)='|' then ExtraPadFlag:=1 else ExtraPadFlag:=0;
+            ExtraPad:= Copy(StringList1[i],LongWord1+3);
             StringList1[i] := Copy(StringList1[i], 1, LongWord1-1);
           end else CmpFlag:=0;
+		  
+		  if ExtraPadFlag = 1 then for ExtraPadLen:=FileStream1.Size to StrToInt(ExtraPad)-1 do FileStream1.WriteBuffer(FFByte, 1);
 
           LongWord3 := FileStream1.Position;
           FileStream2:=TFileStream.Create(InputDir+'\'+StringList1[i], fmOpenRead or fmShareDenyWrite);
